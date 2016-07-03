@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Generating SSH key pair &mdash; Linux Administration 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Linux Administration 0.1 documentation" href="index.html" />
+    <link rel="prev" title="FTP Server (VSFTPD)" href="server.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="server.html" title="FTP Server (VSFTPD)"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Linux Administration 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="generating-ssh-key-pair">
+<h1>Generating SSH key pair<a class="headerlink" href="#generating-ssh-key-pair" title="Permalink to this headline">¶</a></h1>
+<p>The SSH key pair generates a public and private key pair that is used for communication over the internet in in secured manner by encrypting the message.</p>
+<div class="section" id="how-it-works">
+<h2>How it works<a class="headerlink" href="#how-it-works" title="Permalink to this headline">¶</a></h2>
+<p>The Sender(S) and Receiver(R) both generates a key pair.Let,
+SU=Sender Public Key
+SK=Sender Private Key
+RU=Receiver Public Key
+RK=Receiver Private Key</p>
+<ol class="arabic simple">
+<li>The sender encrypts the message with its own private key (<em>call it M1</em>) so that the message can decrypted using sender&#8217;s public key. This way it is authenticated that <em>S</em> has sent the message.</li>
+<li>Then the sender encrypts the message <em>M1</em> with receiver&#8217;s public key (<em>call it M2</em>) so that it can only be decrypted using receiver&#8217;s private key.This way confidentiality of the message is confirmed.</li>
+<li>Now on the receiver side the message <em>M2</em> is first decrypted using receiver&#8217;s private key (RK) and message <em>M1</em> is obtained. After that <em>M1</em> is decrypted using sender&#8217;s <em>S</em> public key <em>SU</em> and thus original message is obtained.</li>
+</ol>
+</div>
+<div class="section" id="generating-keys-pair">
+<h2>Generating keys pair<a class="headerlink" href="#generating-keys-pair" title="Permalink to this headline">¶</a></h2>
+<p>First verify that you already don&#8217;t have ssh key pair generated. To check existing key pair use following commands-</p>
+<div class="highlight-python"><div class="highlight"><pre>cd ~/.ssh
+ls
+</pre></div>
+</div>
+<p>If the listing of file contains any <em>.pub</em> file then that file is contains your public key and other file contains your private key.
+If you don’t have these files (or you don’t even have a .ssh directory), you can create them by running a program called ssh-keygen , which is provided with the SSH package on Linux systems.</p>
+<p>To generate key pair simply run following command</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">ssh</span><span class="o">-</span><span class="n">keygen</span>
+</pre></div>
+</div>
+<p>First it confirms where you want to save the key ( .ssh/id_rsa ), and then it asks twice for a passphrase, which you can leave empty if you don’t want to type a password when you use the key.</p>
+<p>To view your public key -</p>
+<div class="highlight-python"><div class="highlight"><pre>cat ~/.ssh/id_rsa.pub
+</pre></div>
+</div>
+<p><em>id_rsa.pub</em> is file created by ssh-keygen command and contains your public key while the other file in directory will contain your private key.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Generating SSH key pair</a><ul>
+<li><a class="reference internal" href="#how-it-works">How it works</a></li>
+<li><a class="reference internal" href="#generating-keys-pair">Generating keys pair</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="server.html"
+                        title="previous chapter">FTP Server (VSFTPD)</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/sshkey.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="server.html" title="FTP Server (VSFTPD)"
+             >previous</a> |</li>
+        <li><a href="index.html">Linux Administration 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2016, Abhishek Tiwari.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

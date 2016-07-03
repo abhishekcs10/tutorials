@@ -14,6 +14,7 @@ Contents:
    ftp
    client
    server
+   sshkey
 
 Indices and tables
 ==================
