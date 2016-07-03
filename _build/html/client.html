@@ -1,0 +1,171 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>FTP Client- &mdash; Linux Administration 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Linux Administration 0.1 documentation" href="index.html" />
+    <link rel="prev" title="FTP" href="ftp.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="ftp.html" title="FTP"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Linux Administration 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="ftp-client">
+<h1>FTP Client-<a class="headerlink" href="#ftp-client" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="ftp-installation">
+<h2>FTP Installation-<a class="headerlink" href="#ftp-installation" title="Permalink to this headline">¶</a></h2>
+<p>FTP client comes pre-installed in most of the linux distributions. However, if your distro does not contains FTP client, install it using following command-</p>
+<div class="highlight-python"><div class="highlight"><pre>sudo apt-get install ftp
+</pre></div>
+</div>
+<p><em>Most of the time I will be taking about command line based tools. There are other GUI tools like FileZilla which can be used for FTP client and Server management.</em></p>
+</div>
+<div class="section" id="syntax">
+<h2>Syntax-<a class="headerlink" href="#syntax" title="Permalink to this headline">¶</a></h2>
+<p>For FTP client the general syntax is -</p>
+<div class="highlight-python"><div class="highlight"><pre>ftp [-options] hostname port
+</pre></div>
+</div>
+<p><em>Then you will be prompted for username and password.</em></p>
+<div class="section" id="some-important-options">
+<h3>Some Important Options-<a class="headerlink" href="#some-important-options" title="Permalink to this headline">¶</a></h3>
+<table class="docutils option-list" frame="void" rules="none">
+<col class="option" />
+<col class="description" />
+<tbody valign="top">
+<tr><td class="option-group">
+<kbd><span class="option">-4</span></kbd></td>
+<td>Use only IPv4 to contact any host</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-p</span></kbd></td>
+<td>Use passive mode for data transfer.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-i</span></kbd></td>
+<td>Turns off interactive prompting during multiple file transfers.</td></tr>
+<tr><td class="option-group">
+<kbd><span class="option">-d</span></kbd></td>
+<td>Enables debugging.</td></tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="section" id="some-important-commands-in-ftp-after-log-in">
+<h2>Some Important Commands in ftp after log in-<a class="headerlink" href="#some-important-commands-in-ftp-after-log-in" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt><em>binary</em></dt>
+<dd>Set the file transfer type to support binary image transfer.</dd>
+<dt><em>bye</em></dt>
+<dd>Terminate the FTP session with the remote server and exit ftp.</dd>
+<dt><em>cd remote-directory</em></dt>
+<dd>Change the working directory on remote machine</dd>
+<dt><em>close</em></dt>
+<dd>Terminate the FTP session with the remote server.</dd>
+<dt><em>delete remote-file</em></dt>
+<dd>Delete the file remote-file on the remote machine.</dd>
+<dt><em>dir [remote-directory] [local-file]</em></dt>
+<dd>Print a listing of the directory contents in the directory, remote-directory, and, optionally, placing the output in local-file. If interactive prompting is on, ftp will prompt the user to verify that the last argument is indeed the target local file for receiving dir output.  If no directory is specified, the current working directory on the remote machine is used.  If no local file is specified, or local-file is -, output comes to the terminal.</dd>
+<dt><em>get remote-file [local-file]</em></dt>
+<dd>Retrieve the remote-file and store it on the local machine. If the local file name is not specified, it is given the same name it has on the remote machine, subject to alteration by the current case, ntrans, and nmap settings.  The current settings for type, form, mode, and structure are used while transferring the file.</dd>
+<dt><em>open host [port]</em></dt>
+<dd>Establish a connection to the specified host FTP server.  An optional port number may be supplied, in which case, ftp will attempt to contact an FTP server at that port.  If the auto-login option is on (default), ftp will also attempt to automatically log the user in to the FTP server.</dd>
+</dl>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">FTP Client-</a><ul>
+<li><a class="reference internal" href="#ftp-installation">FTP Installation-</a></li>
+<li><a class="reference internal" href="#syntax">Syntax-</a><ul>
+<li><a class="reference internal" href="#some-important-options">Some Important Options-</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#some-important-commands-in-ftp-after-log-in">Some Important Commands in ftp after log in-</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="ftp.html"
+                        title="previous chapter">FTP</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/client.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="ftp.html" title="FTP"
+             >previous</a> |</li>
+        <li><a href="index.html">Linux Administration 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2016, Abhishek Tiwari.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

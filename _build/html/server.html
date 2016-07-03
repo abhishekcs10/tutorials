@@ -1,0 +1,263 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>FTP Server (VSFTPD) &mdash; Linux Administration 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Linux Administration 0.1 documentation" href="index.html" />
+    <link rel="prev" title="FTP Client-" href="client.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="client.html" title="FTP Client-"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Linux Administration 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="ftp-server-vsftpd">
+<h1>FTP Server (VSFTPD)<a class="headerlink" href="#ftp-server-vsftpd" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="vsftpd-installation">
+<h2>VSFTPD Installation-<a class="headerlink" href="#vsftpd-installation" title="Permalink to this headline">¶</a></h2>
+<p>VSFTPD stands for Very Secure FTP Daemon.To install VSFTPD issue following command-&gt;</p>
+<div class="highlight-python"><div class="highlight"><pre>sudo apt-get install vsftpd -y
+</pre></div>
+</div>
+</div>
+<div class="section" id="vsftpd-daemon-commands">
+<h2>VSFTPD daemon commands-<a class="headerlink" href="#vsftpd-daemon-commands" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="to-start-vsftpd-daemon">
+<h3>To start VSFTPD daemon-<a class="headerlink" href="#to-start-vsftpd-daemon" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre>service vsftpd start
+        or
+/etc/init.d/vsftpd start
+</pre></div>
+</div>
+</div>
+<div class="section" id="to-stop-vsftpd-daemon">
+<h3>To stop VSFTPD daemon-<a class="headerlink" href="#to-stop-vsftpd-daemon" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre>service vsftpd stop
+        or
+/etc/init.d/vsftpd stop
+</pre></div>
+</div>
+</div>
+<div class="section" id="to-restart-vsftpd-daemon">
+<h3>To restart VSFTPD daemon-<a class="headerlink" href="#to-restart-vsftpd-daemon" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre>service vsftpd restart
+        or
+/etc/init.d/vsftpd restart
+</pre></div>
+</div>
+</div>
+<div class="section" id="to-check-if-vsftpd-is-running">
+<h3>To check if VSFTPD is running-<a class="headerlink" href="#to-check-if-vsftpd-is-running" title="Permalink to this headline">¶</a></h3>
+<div class="highlight-python"><div class="highlight"><pre>service vsftpd status
+        or
+/etc/init.d/vsftpd status
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="configuration-file-etc-vsftpd-conf">
+<h2>Configuration file /etc/vsftpd.conf<a class="headerlink" href="#configuration-file-etc-vsftpd-conf" title="Permalink to this headline">¶</a></h2>
+<p>Various aspects-</p>
+<div class="section" id="anonymous-ftp-configuration">
+<h3>1- Anonymous FTP configuration-<a class="headerlink" href="#anonymous-ftp-configuration" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>By default vdftpd is not configure to allow anonymous download.To allow any user to download files enable following option</div></blockquote>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">anonymous_enable</span><span class="o">=</span><span class="n">YES</span>
+</pre></div>
+</div>
+<p>With above option any user can login to ftp server using &#8216;ftp&#8217; or &#8216;anonymous&#8217; as username and their email_id as password.</p>
+<p>It is advisable not to allow anonymous user upload or edit file but if write is to be allowed edit options</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">write_enable</span><span class="o">=</span><span class="n">YES</span>
+<span class="n">anon_upload_enable</span><span class="o">=</span><span class="n">YES</span>
+</pre></div>
+</div>
+<p>Then restart your ftp server.</p>
+</div>
+<div class="section" id="authenticated-mode-configuration">
+<h3>2- Authenticated Mode configuration-<a class="headerlink" href="#authenticated-mode-configuration" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>By default vsftpd is configured to authenticate system user and allow them to download and upload files.To enable file uploading and editing-</div></blockquote>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">write_enable</span><span class="o">=</span><span class="n">YES</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="to-restrict-user-to-edit-its-home-directory-through-which-user-logged-in">
+<h3>To restrict user to edit its home directory through which user logged in-<a class="headerlink" href="#to-restrict-user-to-edit-its-home-directory-through-which-user-logged-in" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>Enable the following options-</div></blockquote>
+<div class="highlight-python"><div class="highlight"><pre>chroot_local_user=YES
+chroot_list_enable=YES
+chroot_list_file=/etc/vsftpd.chroot_list
+</pre></div>
+</div>
+<ol class="arabic simple">
+<li>If <em>chroot_local_user</em> is set to NO and <em>chroot_list_enable</em> is set to YES, you may provide a list of local users who are placed in a chroot() jail in their home directory upon login.This list of user is kept in a file and name is supplied to <em>chroot_list_file</em> option. Above, user list is created in file named vsftpd.chroot_list.</li>
+<li>If <em>chroot_local_user</em> is set to YES then meaning of <em>chroot_list_enable</em> is slightly different. In this case, the list becomes a list of  users  which  are NOT  to be placed in a chroot() jail.  By default, the file containing this list is <em>/etc/vsftpd.chroot_list</em>, but you may  over‐ride this with the <em>chroot_list_file</em> setting.</li>
+</ol>
+<p>Warning: This  option  has security implications, especially if the users have upload permission, or shell access. Only enable if you know what  you  are doing.  Note that these security implications are not vsftpd specific. They apply to all FTP daemons  which  offer to put local users in chroot() jails.</p>
+</div>
+<div class="section" id="add-user-to-ftp-server">
+<h3>Add user to ftp server-&gt;<a class="headerlink" href="#add-user-to-ftp-server" title="Permalink to this headline">¶</a></h3>
+<p>Recommended that make a separate for ftp users (let&#8217;s say group is ftpuser)</p>
+<div class="highlight-python"><div class="highlight"><pre>sudo groupadd ftpuser
+</pre></div>
+</div>
+<p>Add a dummy shell to /etc/shells (say- <em>/usr/sbin/nologin</em>) to restrict shell access.</p>
+<p><em>Case 1</em>- Give a particular user full access i.e. Download, Upload or Editing issue following command-</p>
+<div class="highlight-python"><div class="highlight"><pre>sudo useradd -d /home/ftp -g ftpuser  -s /usr/sbin/nologin user1
+</pre></div>
+</div>
+<p>Above commands creates a user with username user1, home directory /home/ftp, no shell access.
+Assign a password with-</p>
+<dl class="docutils">
+<dt>::</dt>
+<dd>sudo passwd user1</dd>
+</dl>
+<p>Now you will be prompted for new password.</p>
+<p>For full access apply file permissions as-</p>
+<dl class="docutils">
+<dt>::</dt>
+<dd>sudo chown -R user1 /home/ftp
+sudo chmod 755 /home/ftp</dd>
+</dl>
+<p><em>Case 2</em>- Give read permission only to another user (say user2) while user 1 has all permission</p>
+<div class="highlight-python"><div class="highlight"><pre>sudo useradd -d /home/ftp -g ftpuser -s /usr/sbin/nologin user2
+sudo passwd user2
+</pre></div>
+</div>
+<p>Now since it belongs to group ftpuser it will have read and execute permission but not write permission.</p>
+<p><em>check directory owner after adding any user to same home directory</em></p>
+</div>
+<div class="section" id="to-run-ftp-as-standalone-recommended">
+<h3>3. To run FTP as standalone (recommended)-<a class="headerlink" href="#to-run-ftp-as-standalone-recommended" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>Enable following option</div></blockquote>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">listen</span><span class="o">=</span><span class="n">YES</span>
+<span class="n">listen_ipv6</span><span class="o">=</span><span class="n">NO</span>
+</pre></div>
+</div>
+<p>These both options cannot be simultaneously yes.</p>
+</div>
+<div class="section" id="enable-active-or-passive-mode">
+<h3>4. Enable active or passive mode-<a class="headerlink" href="#enable-active-or-passive-mode" title="Permalink to this headline">¶</a></h3>
+<p>To enable active mode set-</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">connect_from_port_20</span><span class="o">=</span><span class="n">YES</span>
+</pre></div>
+</div>
+<p>To enable passive mode</p>
+<div class="highlight-python"><div class="highlight"><pre>pasv_enable=YES
+pasv_min_port=*number_not less than 1024*
+pasv_max_port=*number not exceeds 65535*
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">FTP Server (VSFTPD)</a><ul>
+<li><a class="reference internal" href="#vsftpd-installation">VSFTPD Installation-</a></li>
+<li><a class="reference internal" href="#vsftpd-daemon-commands">VSFTPD daemon commands-</a><ul>
+<li><a class="reference internal" href="#to-start-vsftpd-daemon">To start VSFTPD daemon-</a></li>
+<li><a class="reference internal" href="#to-stop-vsftpd-daemon">To stop VSFTPD daemon-</a></li>
+<li><a class="reference internal" href="#to-restart-vsftpd-daemon">To restart VSFTPD daemon-</a></li>
+<li><a class="reference internal" href="#to-check-if-vsftpd-is-running">To check if VSFTPD is running-</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#configuration-file-etc-vsftpd-conf">Configuration file /etc/vsftpd.conf</a><ul>
+<li><a class="reference internal" href="#anonymous-ftp-configuration">1- Anonymous FTP configuration-</a></li>
+<li><a class="reference internal" href="#authenticated-mode-configuration">2- Authenticated Mode configuration-</a></li>
+<li><a class="reference internal" href="#to-restrict-user-to-edit-its-home-directory-through-which-user-logged-in">To restrict user to edit its home directory through which user logged in-</a></li>
+<li><a class="reference internal" href="#add-user-to-ftp-server">Add user to ftp server-&gt;</a></li>
+<li><a class="reference internal" href="#to-run-ftp-as-standalone-recommended">3. To run FTP as standalone (recommended)-</a></li>
+<li><a class="reference internal" href="#enable-active-or-passive-mode">4. Enable active or passive mode-</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="client.html"
+                        title="previous chapter">FTP Client-</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/server.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="client.html" title="FTP Client-"
+             >previous</a> |</li>
+        <li><a href="index.html">Linux Administration 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2016, Abhishek Tiwari.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>FTP &mdash; Linux Administration 0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="Linux Administration 0.1 documentation" href="index.html" />
+    <link rel="prev" title="Welcome to Linux Administration’s documentation!" href="index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to Linux Administration’s documentation!"
+             accesskey="P">previous</a> |</li>
+        <li><a href="index.html">Linux Administration 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="ftp">
+<h1>FTP<a class="headerlink" href="#ftp" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="basics-of-ftp">
+<h2>Basics of FTP-<a class="headerlink" href="#basics-of-ftp" title="Permalink to this headline">¶</a></h2>
+<p>FTP is file transfer protocol. It works on two ports-&gt;
+1- For sending commands (default port number 21)
+2- For transfering data files ( default port number 20)</p>
+<p>The above port numbers can be changed as per administrator&#8217;s concern.</p>
+</div>
+<div class="section" id="why-two-separate-ports">
+<h2>WHY two separate ports ?<a class="headerlink" href="#why-two-separate-ports" title="Permalink to this headline">¶</a></h2>
+<p>The reason for creating two separate ports is that commands are generally smaller in size while there may be large size data files. If we were using single port the user would have to wait for the data file to get transferred to issue another command. So when user wants to issue a command it is transferred on port 21 and file transfer takes place on port 20.</p>
+</div>
+<div class="section" id="what-do-we-need-for-ftp-communication">
+<h2>WHAT do we need for ftp communication<a class="headerlink" href="#what-do-we-need-for-ftp-communication" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple">
+<li>FTP Client</li>
+<li>FTP Server</li>
+<li>Username for login to server</li>
+<li>Password</li>
+</ol>
+</div>
+<div class="section" id="two-modes-of-ftp-communication">
+<h2>Two Modes of FTP communication-<a class="headerlink" href="#two-modes-of-ftp-communication" title="Permalink to this headline">¶</a></h2>
+<blockquote>
+<div>The way FTP client and server communicate are as follows-</div></blockquote>
+<div class="section" id="active-mode">
+<h3>1.   Active Mode<a class="headerlink" href="#active-mode" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>In active mode, the client establishes the command channel (from client port X to server port 21) but the server establishes the data channel (from server port 20 to client port Y, where Y has been supplied by the client).</div></blockquote>
+<p>The sequence that takes place is as follows-</p>
+<ul class="simple">
+<li>Client opens up command channel from client port X to server port 21.</li>
+<li>Client sends PORT Y to server and server acknowledges on command channel.</li>
+<li>Server opens up data channel from server port 20 to client port X.</li>
+<li>Client acknowledges on data channel.</li>
+</ul>
+</div>
+<div class="section" id="passive-mode">
+<h3>2.   Passive Mode<a class="headerlink" href="#passive-mode" title="Permalink to this headline">¶</a></h3>
+<blockquote>
+<div>In passive mode, the client establishes both channels. In that case, the server tells the client which port should be used for the data channel.</div></blockquote>
+<p>Passive mode is generally used in situations where the FTP server is not able to establish the data channel. One of the major reasons for this is network firewalls. While you may have a firewall rule which allows you to open up FTP channels to ftp.microsoft.com, Microsoft&#8217;s servers may not have the power to open up the data channel back through your firewall. Such condition occur when you are in local network behind a NAT (network address translator). Although you allow data tranfer through your firewall, it may be blocked on your default gateway.</p>
+<p>Passive mode solves this by opening up both types of channel from the client side.The following sequence of event occurs-&gt;</p>
+<ul class="simple">
+<li>Client opens up command channel from client port X to server port 21.</li>
+<li>Client sends PASV (use passive mode) to server on command channel.</li>
+<li>Server sends back (on command channel) PORT Z after starting to listen on that port.</li>
+<li>Client opens up data channel from client Y to server port Z.</li>
+<li>Server acknowledges on data channel.</li>
+</ul>
+</div>
+<div class="section" id="note">
+<h3>Note-<a class="headerlink" href="#note" title="Permalink to this headline">¶</a></h3>
+<p><em>-  The port X, Y and Z  are user ports ranging between 1025-65535.</em></p>
+<p><em>-  Server may operate on port numbers other than 20 and 21.</em></p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">FTP</a><ul>
+<li><a class="reference internal" href="#basics-of-ftp">Basics of FTP-</a></li>
+<li><a class="reference internal" href="#why-two-separate-ports">WHY two separate ports ?</a></li>
+<li><a class="reference internal" href="#what-do-we-need-for-ftp-communication">WHAT do we need for ftp communication</a></li>
+<li><a class="reference internal" href="#two-modes-of-ftp-communication">Two Modes of FTP communication-</a><ul>
+<li><a class="reference internal" href="#active-mode">1.   Active Mode</a></li>
+<li><a class="reference internal" href="#passive-mode">2.   Passive Mode</a></li>
+<li><a class="reference internal" href="#note">Note-</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="index.html"
+                        title="previous chapter">Welcome to Linux Administration&#8217;s documentation!</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/ftp.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="index.html" title="Welcome to Linux Administration’s documentation!"
+             >previous</a> |</li>
+        <li><a href="index.html">Linux Administration 0.1 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2016, Abhishek Tiwari.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.2.3.
+    </div>
+  </body>
+</html>
